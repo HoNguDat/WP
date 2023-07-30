@@ -1,0 +1,13 @@
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\bin\Debug\netcoreapp3.1\DemoService.deps.json
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\bin\Debug\netcoreapp3.1\DemoService.dll
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\bin\Debug\netcoreapp3.1\DemoService.pdb
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\bin\Debug\netcoreapp3.1\DemoCommon.dll
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\bin\Debug\netcoreapp3.1\DemoCommon.pdb
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.AssemblyInfo.cs
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.csproj.CopyComplete
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.dll
+C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoService\obj\Debug\netcoreapp3.1\DemoService.pdb
