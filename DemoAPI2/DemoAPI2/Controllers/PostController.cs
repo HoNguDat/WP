@@ -1,27 +1,37 @@
 ﻿using DemoCommon.Models;
+using DemoCommon.ReqModels;
+using DemoCommon.ResModels;
 using DemoService;
+using DemoService.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DemoAPI2.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
+    
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
-
-        public PostController(IPostService postService)
+        private readonly IFileService _fileService;
+        public PostController(IPostService postService,IFileService fileService)
         {
             _postService = postService;
+            _fileService = fileService;
         }
 
         [HttpGet]
         [Route("getAllPost")]
-        public async Task<IActionResult> GetAllPost()
+        public async Task<List<PostResponse>> GetAllPost(string keyword)
         {
-            var data = await _postService.GetAllPost();
-            return Ok(data);
+            var data = await _postService.GetAllPost(keyword);
+            var result = data.Select(p => new PostResponse(p)).ToList();
+
+            return result;
         }
 
         [HttpGet]
@@ -34,9 +44,15 @@ namespace DemoAPI2.Controllers
 
         [HttpPost]
         [Route("addPost")]
-        public async Task<IActionResult> AddPost([FromBody] Post post)
+        public async Task<IActionResult> AddPost([FromForm] Post post)
         {
+            var fileResult = _fileService.SaveFile(post.ImageFile);
+            if(fileResult.Item1==1)
+            {
+                post.PostImage = fileResult.Item2;
+            }
             var data = await _postService.AddPost(post);
+            
             return Ok(data);
         }
 
@@ -51,7 +67,7 @@ namespace DemoAPI2.Controllers
         [Route("updatePost/{id}")]
         public async Task<IActionResult> UpdatePost(int id, [FromBody] Post post)
         {
-            var data = await _postService.UpdatePost(id,post);
+            var data = await _postService.UpdatePost(id, post);
             return Ok(data);
         }
     }

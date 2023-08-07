@@ -1,8 +1,13 @@
 ﻿using DemoCommon.Exceptions;
 using DemoCommon.Models;
+using DemoCommon.ReqModels;
+using DemoCommon.ResModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,12 +15,12 @@ namespace DemoService
 {
     public interface IPostService
     {
-        Task<List<Post>> GetAllPost();
+        Task<List<Post>> GetAllPost(string? keyword );
         Task<Post> GetPost(int? id);
         Task<Post> AddPost(Post post);
-        Task<Post> UpdatePost(int id,Post post);
+        Task<Post> UpdatePost(int id, Post post);
         void DeletePost(int id);
-
+        //Task<List<Post>> Search(string keyword);
     }
     public class PostService : IPostService
     {
@@ -24,10 +29,23 @@ namespace DemoService
         {
             this._context = context;
         }
-        public async Task<List<Post>> GetAllPost()
+        public async Task<List<Post>> GetAllPost(string? keyword)
         {
-            return await _context.Posts.ToListAsync();
+            //if(!string.IsNullOrEmpty(keyword))
+            //    return await _context.Posts.Include(p => p.User).Include(p => p.Group).Where(x => x.Content.ToLower().Contains(keyword.ToLower())).ToListAsync();
+            //return await _context.Posts.Include(p => p.User).Include(p => p.Group).ToListAsync();
+
+            var query = _context.Posts.Include(p => p.User).Include(p => p.Group).AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var lowerKeyword = keyword.ToLower();
+                query = query.Where(x => x.Content.ToLower().Contains(lowerKeyword));
+            }
+
+            return await query.ToListAsync();
         }
+      
         public async Task<Post> GetPost(int? id)
         {
             var entity = new Post();
@@ -46,7 +64,7 @@ namespace DemoService
             await _context.SaveChangesAsync();
             return post;
         }
-        public async Task<Post> UpdatePost(int id,Post post)
+        public async Task<Post> UpdatePost(int id, Post post)
         {
             post.PostId = id;
             _context.Entry(post).State = EntityState.Modified;

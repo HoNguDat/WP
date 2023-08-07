@@ -49,10 +49,15 @@ namespace DemoCommon.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PostImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("PostId");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
@@ -103,11 +108,19 @@ namespace DemoCommon.Migrations
 
             modelBuilder.Entity("DemoCommon.Models.Post", b =>
                 {
+                    b.HasOne("DemoCommon.Models.Group", "Group")
+                        .WithMany("Posts")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DemoCommon.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });
@@ -125,6 +138,11 @@ namespace DemoCommon.Migrations
                         .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DemoCommon.Models.Group", b =>
+                {
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("DemoCommon.Models.User", b =>

@@ -11,3 +11,16 @@ C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\Dem
 C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.dll
 C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.pdb
 C:\Users\PC\Desktop\Reactjs\demo\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.genruntimeconfig.cache
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\bin\Debug\netcoreapp3.1\DemoCommon.deps.json
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\bin\Debug\netcoreapp3.1\DemoCommon.runtimeconfig.json
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\bin\Debug\netcoreapp3.1\DemoCommon.runtimeconfig.dev.json
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\bin\Debug\netcoreapp3.1\DemoCommon.dll
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\bin\Debug\netcoreapp3.1\DemoCommon.pdb
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.AssemblyInfo.cs
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.dll
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.pdb
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoCommon\obj\Debug\netcoreapp3.1\DemoCommon.genruntimeconfig.cache
