@@ -10,7 +10,7 @@ namespace DemoCommon.Models
         [Key]
         public int GroupId { get; set; }
         public string Name { get; set; }
-        public int MemberQuantity { get; set; }
+        public int? MemberQuantity { get; set; }
        
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Post> Posts { get; set; }

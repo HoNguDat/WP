@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yEf9GYQ9BCrOBHWS0rr5dBCVZh1QOIMqpTlxwqx1CSFMciY8v8hbDzcdhDb1J9qM/46l42R0RuGaGMtgb+KPgQ==",
+  "dgSpecHash": "/rS4qu3SzEeGec7RItgULsgtOPO5SJAK4zVY2JcIQCHqdAg8iNvJDZHoJJcwy9OzILD0mWwYQKV1soSc7lurPQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Desktop\\Reactjs\\WP\\DemoAPI2\\DemoAPI2\\DemoAPI2.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\PC\\.nuget\\packages\\bcrypt\\1.0.0\\bcrypt.1.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\bcrypt.net-next\\2.0.0\\bcrypt.net-next.2.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.32\\microsoft.aspnetcore.authentication.jwtbearer.3.1.32.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.0.0\\microsoft.aspnetcore.jsonpatch.3.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.0.0\\microsoft.aspnetcore.mvc.newtonsoftjson.3.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

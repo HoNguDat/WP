@@ -210,3 +210,4 @@ C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoAPI2\obj\Debug\netcoreapp3.1\DemoAPI
 C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoAPI2\obj\Debug\netcoreapp3.1\DemoAPI2.genruntimeconfig.cache
 C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoAPI2\bin\Debug\netcoreapp3.1\DevOne.Security.Cryptography.BCrypt.dll
 C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoAPI2\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+C:\Users\PC\Desktop\Reactjs\WP\DemoAPI2\DemoAPI2\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll

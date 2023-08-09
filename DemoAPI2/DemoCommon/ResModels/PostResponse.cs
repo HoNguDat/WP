@@ -12,7 +12,7 @@ namespace DemoCommon.ResModels
         public string FullName { get; set; }
         public string GroupName { get; set; }
         public string PostImage { get; set; }
-
+        public DateTime? CreatedDateTime { get; set; }
 
         public PostResponse()
         {
@@ -25,6 +25,7 @@ namespace DemoCommon.ResModels
             Content = p.Content;
             GroupName = p.Group.Name;
             PostImage = p.PostImage;
+            CreatedDateTime = p.CreatedDateTime;
         }
 
     }

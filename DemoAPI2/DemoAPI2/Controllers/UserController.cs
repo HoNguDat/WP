@@ -2,6 +2,7 @@
 using DemoCommon.ReqModels;
 using DemoService;
 using DemoService.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace DemoAPI2.Controllers
         {
             _userService = userService;
         }
+
+        [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]AuthenticateRequest model)
         {
@@ -27,7 +30,7 @@ namespace DemoAPI2.Controllers
 
             return Ok(response);
         }
-        [Authorize]
+       
         [HttpGet]
         [Route("getAllUser")]
         public async Task<IActionResult> GetAllUser()

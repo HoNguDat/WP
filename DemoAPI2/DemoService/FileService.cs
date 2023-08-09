@@ -24,15 +24,15 @@ namespace DemoService
         {
             try
             {
-                var contentPath = this.environment.ContentRootPath;
-                // path = "c://projects/productminiapi/uploads" ,not exactly something like that
-                var path = Path.Combine(contentPath, "Uploads");
+                var contentPath = this.environment.WebRootPath;
+               
+                var path = Path.Combine(contentPath, "images");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
 
-                // Check the allowed extenstions
+               
                 var ext = Path.GetExtension(imageFile.FileName);
                 var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
                 if (!allowedExtensions.Contains(ext))

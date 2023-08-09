@@ -3,7 +3,9 @@ using DemoCommon.ReqModels;
 using DemoCommon.ResModels;
 using DemoService;
 using DemoService.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,31 +31,34 @@ namespace DemoAPI2.Controllers
         public async Task<List<PostResponse>> GetAllPost(string keyword)
         {
             var data = await _postService.GetAllPost(keyword);
-            var result = data.Select(p => new PostResponse(p)).ToList();
-
+            var result = data.Select(p => new PostResponse(p)).OrderByDescending(p=>p.CreatedDateTime).ToList();
             return result;
         }
 
         [HttpGet]
-        [Route("getById/{id}")]
-        public async Task<IActionResult> GetPost(int? id)
+        [Route("getById/{id?}")]
+        public async Task<Post> GetPost(int? id)
         {
             var data = await _postService.GetPost(id);
-            return Ok(data);
+            return data;
         }
 
         [HttpPost]
         [Route("addPost")]
-        public async Task<IActionResult> AddPost([FromForm] Post post)
+        
+        public async Task<PostResponse> AddPost([FromForm] Post post)
         {
             var fileResult = _fileService.SaveFile(post.ImageFile);
             if(fileResult.Item1==1)
             {
                 post.PostImage = fileResult.Item2;
             }
+            post.CreatedDateTime = DateTime.Now;
             var data = await _postService.AddPost(post);
-            
-            return Ok(data);
+
+            var result = await GetPost(data.PostId);
+
+            return new PostResponse(result);
         }
 
         [HttpDelete("{id}")]

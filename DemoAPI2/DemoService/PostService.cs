@@ -15,7 +15,7 @@ namespace DemoService
 {
     public interface IPostService
     {
-        Task<List<Post>> GetAllPost(string? keyword );
+        Task<List<Post>> GetAllPost(string? keyword);
         Task<Post> GetPost(int? id);
         Task<Post> AddPost(Post post);
         Task<Post> UpdatePost(int id, Post post);
@@ -35,7 +35,7 @@ namespace DemoService
             //    return await _context.Posts.Include(p => p.User).Include(p => p.Group).Where(x => x.Content.ToLower().Contains(keyword.ToLower())).ToListAsync();
             //return await _context.Posts.Include(p => p.User).Include(p => p.Group).ToListAsync();
 
-            var query = _context.Posts.Include(p => p.User).Include(p => p.Group).AsQueryable();
+            var query = _context.Posts.Include(p => p.User).Include(p => p.Group).OrderByDescending(p=>p.CreatedDateTime).AsQueryable();
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -45,18 +45,23 @@ namespace DemoService
 
             return await query.ToListAsync();
         }
-      
+
         public async Task<Post> GetPost(int? id)
         {
-            var entity = new Post();
-            if (id != null)
-            {
-                entity = await _context.Posts.FirstOrDefaultAsync(x => x.PostId == id)
+            var entity = await _context.Posts.Include(p => p.User).Include(p => p.Group).FirstOrDefaultAsync(x => x.PostId == id)
                     ?? throw new NotFoundException($"Id:{id} không tồn tại !");
 
-
-            }
             return entity;
+
+            //var entity = new Post();
+            //if (id != null)
+            //{
+            //    entity = await _context.Posts.FirstOrDefaultAsync(x => x.PostId == id)
+            //        ?? throw new NotFoundException($"Id:{id} không tồn tại !");
+
+
+            //}
+            //return entity;
         }
         public async Task<Post> AddPost(Post post)
         {
@@ -70,9 +75,6 @@ namespace DemoService
             _context.Entry(post).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return post;
-
-
-
         }
         public void DeletePost(int id)
         {

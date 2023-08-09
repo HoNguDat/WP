@@ -16,11 +16,11 @@ namespace DemoCommon.Models
         public int GroupId { get; set; }
         public int UserId { get; set; }
         public string? PostImage { get; set; }
+        public DateTime? CreatedDateTime { get; set; }
         public virtual User User { get; set; }
         public virtual Group Group { get; set; }
+
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
-       
-
     }
 }

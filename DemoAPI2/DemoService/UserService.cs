@@ -45,25 +45,56 @@ namespace DemoService
             if (user == null) return null;
 
             // authentication successful so generate jwt token
-            var token = GenerateJwtToken(user);
+            //var token = GenerateJwtToken(user);
+            var token = GenerateAccessToken(user);
 
             return new AuthenticateResponse(user, token);
         }
-      
-        private string GenerateJwtToken(User user)
+
+        public string GenerateAccessToken(User user)
         {
-            // generate token that is valid for 7 days
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var issuedTime = DateTime.UtcNow;
+            var expiredAt = issuedTime.Add(TimeSpan.FromDays(30));
+            // Specifically add the jti (random nonce), iat (issued timestamp), and sub (subject/user) claims.
+            // You can add other claims here, if you want:
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("UserId", user.UserId.ToString()) }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, (issuedTime.Subtract(new DateTime(1970,1,1))).TotalSeconds.ToString(), ClaimValueTypes.Integer64),
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("d0dd4162d3ab48b7adae097b755e671e7411"));
+
+            // Create the JWT and write it to a string
+            var jwt = new JwtSecurityToken(
+                issuer: "jwtIssuer",
+                audience: "jwtAudience",
+                claims: claims,
+                notBefore: issuedTime,
+                expires: expiredAt,
+                signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
+            );
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return encodedJwt;
         }
+
+
+        //private string GenerateJwtToken(User user)
+        //{
+        //    // generate token that is valid for 7 days
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes("d0dd4162d3ab48b7adae097b755e671e7411");
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(new[] { new Claim("UserId", user.UserId.ToString()) }),
+        //        Expires = DateTime.UtcNow.AddDays(7),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        //    };
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    return tokenHandler.WriteToken(token);
+        //}
         public async Task<List<User>> GetAllUser()
         {
             return await _context.Users.ToListAsync();

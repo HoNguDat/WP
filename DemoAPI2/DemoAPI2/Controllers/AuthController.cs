@@ -50,19 +50,11 @@ namespace DemoAPI2.Controllers
 
             var jwt = _jwtService.Generate(user.UserId);
 
-            //HttpContext.Response.Cookies.Append("jwt", jwt, new CookieOptions
-            //{
-            //    HttpOnly = true,
-            //    Expires = DateTime.UtcNow.AddDays(10),
-            //    SameSite = SameSiteMode.None,
-            //    Secure = true,
-            //    Domain = "localhost"
-            //});
-            //Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+           
 
             return Ok(new
             {
-                //message = "Login success !",
+                
                 jwt
             });
         }

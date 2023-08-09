@@ -20,6 +20,10 @@ using DemoService.Helpers;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 
 namespace DemoAPI2
 {
@@ -42,7 +46,61 @@ namespace DemoAPI2
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGroupService, GroupService>();
-            services.AddScoped<IFileService, FileService>();          
+            services.AddScoped<IFileService, FileService>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwtBearerOptions =>
+            {
+                jwtBearerOptions.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = async (context) =>
+                    {
+                        //var accessToken = context.SecurityToken as JwtSecurityToken;
+                        //var userId = accessToken.Claims.FirstOrDefault(c => c.Type == AuthConstants.USER_ID_CLAIM_TYPE);
+
+                        //var validateTokenService = context.HttpContext.RequestServices.GetRequiredService<IValidateTokenService>();
+
+                        //var isRevoked = await validateTokenService.IsUserLoginRevokedAsync(int.Parse(userId.Value), accessToken.RawData);
+                        //if (isRevoked)
+                        //{
+                        //    throw new CustomException("1000", "Unauthorized", HttpStatusCode.Unauthorized);
+                        //}
+
+                        //var userStatus = await validateTokenService.GetUserStatusAsync(int.Parse(userId.Value));
+
+                        //if (userStatus == null || userStatus.Value == UserStatus.Closed)
+                        //{
+                        //    throw new CustomException(Errors.USER_CLOSED, Errors.USER_CLOSED_MSG, HttpStatusCode.Unauthorized);
+                        //}
+                    }
+                };
+
+                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                {
+                    // The signing key must match!
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("d0dd4162d3ab48b7adae097b755e671e7411")),
+
+                    // Validate the JWT Issuer (iss) claim
+                    ValidateIssuer = true,
+                    ValidIssuer = "jwtIssuer",
+
+                    // Validate the JWT Audience (aud) claim
+                    ValidateAudience = true,
+                    ValidAudience = "jwtAudience",
+
+                    // Validate the token expiry
+                    ValidateLifetime = true,
+
+                    // If you want to allow a certain amount of clock drift, set that here:
+                    ClockSkew = TimeSpan.FromMinutes(1)
+                };
+            });
+
+
             services.AddControllers();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -99,12 +157,13 @@ namespace DemoAPI2
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-            Path.Combine(env.ContentRootPath, "Uploads")),
-                RequestPath = "/Resources"
-            });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //Path.Combine(env.WebRootPath, "images")),
+            //    RequestPath = "/Resources"
+            //});
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(options => options
              .WithOrigins(new[] { "http://localhost:3000", "http://localhost:8080", "http://localhost:4200","http://localhost:3001" })
@@ -113,8 +172,9 @@ namespace DemoAPI2
                
             );
            
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<JwtMiddleware>();
+            //app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
